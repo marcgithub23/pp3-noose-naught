@@ -1,3 +1,11 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+import random
+from words import animals
+
+print("Welcome to hangman")
+print("---------------------------")
+
+# Choose a random word to guess
+word_to_guess = random.choice(list(animals)).upper()
+# Display and replace letters to guess with a blank
+for char in word_to_guess:
+    print("_", end=" ")
