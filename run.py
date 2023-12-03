@@ -1,11 +1,10 @@
 import random
 from words import animals
 
-print("Welcome to hangman")
-print("---------------------------")
-
-# Choose a random word to guess
-word_to_guess = random.choice(list(animals)).upper()
-# Display and replace letters to guess with a blank
-for char in word_to_guess:
-    print("_", end=" ")
+def get_word():
+    """
+    Choose word randomly from a dict and uppercase.
+    Credit: Kite
+    """
+    word = random.choice(list(animals))
+    return word.upper()
