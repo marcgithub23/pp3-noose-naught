@@ -154,3 +154,16 @@ def display_hangman(lives):
                 """
     ]
     return stages[lives]
+
+def main():
+    """Run all program functions"""
+    word = get_word()
+    play(word)
+
+    # Ask user to play again
+    while input("Play again? (Y/N): ").upper() == "Y":
+        word = get_word()
+        play(word)
+
+if __name__ == "__main__":
+    main()
