@@ -46,7 +46,7 @@ def play(word):
                 # Replace blank with correct guess
                 for index in indices:
                     word_as_list[index] = guess
-                word_completion = " ".join(word_as_list)
+                word_completion = "".join(word_as_list)
                 # Game won if all letters in word guessed
                 if "_" not in word_completion:
                     guessed = True
