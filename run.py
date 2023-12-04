@@ -15,6 +15,7 @@ def play(word):
     guessed = False
     guessed_letters = []
     lives = 6
+    quit = False
 
     for char in word:
         # If alphabet letter, replace with blank space and display
@@ -24,7 +25,7 @@ def play(word):
         else:
             word_display.append(char)
 
-    while not guessed and lives > 0:
+    while not guessed and lives > 0 and not quit:
         print(f"Lives: {lives}")
         print(display_hangman(lives))
         print_word(word_display)
@@ -58,13 +59,25 @@ def play(word):
 
         # Validate user input
         else:
-            if len(guess) != 1:
+            if len(guess) != 1 and guess != "QUIT":
                 print("Please enter one letter only.")
             elif not guess.isalpha():
                 print("Please enter an alphabet only.")
+        
+        # Quit option
+        if guess == "QUIT":
+            quit_answer = input("Are you sure you want to quit and go back to the game menu? (Y/N): ").upper()
+            if quit_answer == "N":
+                continue
+            else:
+                quit = True
+    
+    # When quitting
+    if quit:
+        print("Thank you for attempting!")
     
     # When game is won
-    if guessed:
+    elif guessed:
         if lives == 1:
             lives_left = f"{lives} life left"
         else:
@@ -161,10 +174,10 @@ def main():
         print("---------------------")
         print("\t\tGAME MENU")
         print("---------------------")
-        # Display available categories to choose from and quit option
+        # Display available categories to choose from and exit option
         for key in word_categories:
             print(f"Press {key} to select {word_categories[key]}")
-            print(f"Press {len(word_categories) + 1} to quit")
+            print(f"Press {len(word_categories) + 1} to exit game")
             print()
         try:
             # Ask user to enter choice and convert to int
@@ -178,7 +191,7 @@ def main():
         if choice > len(word_categories) + 1:
             print("Invalid choice! Please select from the available options.")
             continue
-        # If user wants to quit
+        # If user wants to exit game
         elif choice == len(word_categories) + 1:
             print()
             print("Thank you for playing!")
