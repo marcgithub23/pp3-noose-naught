@@ -1,18 +1,10 @@
 import random
 import os
-from words import animals
+from words import word_categories, words_list, definitions
 
 def clear():
     """Clear terminal"""
     os.system("cls")
-
-def get_word():
-    """
-    Choose word randomly from a dict and uppercase.
-    Credit: Kite
-    """
-    word = random.choice(list(animals))
-    return word.upper()
 
 def play(word):
     """Start and play hangman game"""
@@ -22,7 +14,6 @@ def play(word):
     guessed_letters = []
     lives = 6
 
-    print("Let's play Hangman!")
     print(f"Lives: {lives}")
     print(display_hangman(lives))
     print(word_completion)
@@ -162,12 +153,40 @@ def display_hangman(lives):
 
 def main():
     """Run all program functions"""
-    word = get_word()
-    play(word)
 
-    # Ask user to play again
-    while input("Play again? (Y/N): ").upper() == "Y":
-        word = get_word()
+    # Game menu to ask user to select a category; Credit: Scottish Coder
+    while True:
+        print()
+        print("---------------------")
+        print("\t\tGAME MENU")
+        print("---------------------")
+        # Display available categories to choose from and quit option
+        for key in word_categories:
+            print(f"Press {key} to select {word_categories[key]}")
+            print(f"Press {len(word_categories) + 1} to quit")
+            print()
+        try:
+            # Ask user to enter choice and convert to int
+            choice = int(input("Enter your choice = "))
+        except ValueError:
+            # Handle error if user enters an invalid choice
+            clear()
+            print("Invalid choice! Please select from the available options.")
+            continue
+        
+        # If user enters a number greater than the available options
+        if choice > len(word_categories) + 1:
+            clear()
+            print("Invalid choice! Please select from the available options.")
+            continue
+        # If user wants to quit
+        elif choice == len(word_categories) + 1:
+            print()
+            print("Thank you for playing!")
+            break
+
+        chosen_category = word_categories[choice]
+        word = random.choice(words_list[chosen_category]).upper()
         play(word)
 
 if __name__ == "__main__":
