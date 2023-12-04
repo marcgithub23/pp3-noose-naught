@@ -1,10 +1,5 @@
 import random
-import os
 from words import word_categories, words_list, definitions
-
-def clear():
-    """Clear terminal"""
-    os.system("cls")
 
 def print_word(values):
     """Print and display word to guess"""
@@ -16,7 +11,6 @@ def print_word(values):
 
 def play(word):
     """Start and play hangman game"""
-    clear()
     word_display = []
     guessed = False
     guessed_letters = []
@@ -31,7 +25,6 @@ def play(word):
             word_display.append(char)
 
     while not guessed and lives > 0:
-        clear()
         print(f"Lives: {lives}")
         print(display_hangman(lives))
         print_word(word_display)
@@ -54,16 +47,13 @@ def play(word):
             else:
                 print(f"Good job, the letter {guess} is in the word! You won't lose to the noose yet!")
                 guessed_letters.append(guess)
-                # Make word_completion to a list
-                word_as_list = list(word_completion)
-                # Iterate over word to find index where guess is correct
-                indices = [i for i, letter in enumerate(word) if letter == guess]
                 # Replace blank with correct guess
-                for index in indices:
-                    word_as_list[index] = guess
-                word_completion = "".join(word_as_list)
+                for i in range(len(word)):
+                    if word[i] == guess:
+                        word_display[i] = guess
+
                 # Game won if all letters in word guessed
-                if "_" not in word_completion:
+                if "_" not in word_display:
                     guessed = True
 
         # Validate user input
@@ -165,7 +155,6 @@ def display_hangman(lives):
 
 def main():
     """Run all program functions"""
-    clear()
     # Game menu to ask user to select a category; Credit: Scottish Coder
     while True:
         print()
@@ -182,13 +171,11 @@ def main():
             choice = int(input("Enter your choice = "))
         except ValueError:
             # Handle error if user enters an invalid choice
-            clear()
             print("Invalid choice! Please select from the available options.")
             continue
         
         # If user enters a number greater than the available options
         if choice > len(word_categories) + 1:
-            clear()
             print("Invalid choice! Please select from the available options.")
             continue
         # If user wants to quit
