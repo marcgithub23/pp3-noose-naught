@@ -78,11 +78,14 @@ def play(word):
     
     # When game is won
     elif guessed:
+        display_hangman_win()
+        print_word(word_display)
+        print()
         if lives == 1:
             lives_left = f"{lives} life left"
         else:
             lives_left = f"{lives} lives left"
-        print(f"Congratulations, you guessed the word! You escaped the noose with {lives_left}!")
+        print(f"Congratulations, you guessed the word {word}! You escaped the noose with {lives_left}!")
     
     # When game over
     else:
@@ -165,6 +168,23 @@ def display_hangman(lives):
                 """
     ]
     return stages[lives]
+
+def display_hangman_win():
+    """
+    Print out a visual of the man escaping the gallows
+    Credit: Scottish Coder
+    """
+    print(
+        """
+        --------
+        |      
+        |      
+        |            O
+        |           \\|/
+        |            |
+        -           / \\
+        """
+    )
 
 def main():
     """Run all program functions"""
