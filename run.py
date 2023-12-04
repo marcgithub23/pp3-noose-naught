@@ -18,7 +18,8 @@ def play(word):
     lives = 6
 
     print("Let's play Hangman!")
-    print(lives)
+    print(f"Lives: {lives}")
+    print(display_hangman(lives))
     print(word_completion)
     print("\n")
 
@@ -58,9 +59,10 @@ def play(word):
                 print("Please enter an alphabet only.")
         
         # Print updated game state
-        print(lives)
+        print(f"Lives: {lives}")
+        print(display_hangman(lives))
         print(word_completion)
-        print(guessed_letters)
+        print(f"You have already entered the following letters: {guessed_letters}")
         print("\n")
     
     # When game is won
@@ -74,3 +76,81 @@ def play(word):
     # When game over
     else:
         print(f"Oh no, you're out of lives! You snooze, you're noosed! The word was {word}.")
+
+def display_hangman(lives):
+    """
+    Display hangman visuals according to lives left.
+    Credit: Kite
+    """
+    stages = [  # final state: head, torso, both arms, and both legs
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                """,
+                # head, torso, both arms, and one leg
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / 
+                   -
+                """,
+                # head, torso, and both arms
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |      
+                   -
+                """,
+                # head, torso, and one arm
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |     
+                   -
+                """,
+                # head and torso
+                """
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |     
+                   -
+                """,
+                # head
+                """
+                   --------
+                   |      |
+                   |      O
+                   |    
+                   |      
+                   |     
+                   -
+                """,
+                # initial empty state
+                """
+                   --------
+                   |      |
+                   |      
+                   |    
+                   |      
+                   |     
+                   -
+                """
+    ]
+    return stages[lives]
