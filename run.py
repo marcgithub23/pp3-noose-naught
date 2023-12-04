@@ -6,6 +6,14 @@ def clear():
     """Clear terminal"""
     os.system("cls")
 
+def print_word(values):
+    """Print and display word to guess"""
+    print()
+    print("\t", end=" ")
+    for x in values:
+        print(x, end=" ")
+    print()
+
 def play(word):
     """Start and play hangman game"""
     clear()
