@@ -34,7 +34,7 @@ def play(word):
         print()
 
         # Strip any leading and/or trailing whitespace and convert to uppercase
-        guess = input("Please guess a letter: ").strip().upper()
+        guess = input("Please guess a letter: \n").strip().upper()
 
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
@@ -66,7 +66,7 @@ def play(word):
         
         # Quit option
         if guess == "QUIT":
-            quit_answer = input("Are you sure you want to quit and go back to the game menu? (Y/N): ").upper()
+            quit_answer = input("Are you sure you want to quit and go back to the game menu? (Y/N): \n").upper()
             if quit_answer == "N":
                 continue
             else:
@@ -201,7 +201,7 @@ def main():
             print()
         try:
             # Ask user to enter choice and convert to int
-            choice = int(input("Enter your choice = "))
+            choice = int(input("Enter your choice = \n"))
         except ValueError:
             # Handle error if user enters an invalid choice
             print("Invalid choice! Please select from the available options.")
