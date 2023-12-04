@@ -8,18 +8,29 @@ def clear():
 
 def play(word):
     """Start and play hangman game"""
-    # Replace letters with blanks
-    word_completion = "_" * len(word)
+    clear()
+    word_display = []
     guessed = False
     guessed_letters = []
     lives = 6
 
-    print(f"Lives: {lives}")
-    print(display_hangman(lives))
-    print(word_completion)
-    print("\n")
+    for char in word:
+        # If alphabet letter, replace with blank space and display
+        if char.isalpha():
+            word_display.append("_")
+        # Otherwise, display if char is space, for example
+        else:
+            word_display.append(char)
 
     while not guessed and lives > 0:
+        clear()
+        print(f"Lives: {lives}")
+        print(display_hangman(lives))
+        print_word(word_display)
+        print()
+        print(f"You have already entered the following letters: {guessed_letters}")
+        print()
+
         # Strip any leading and/or trailing whitespace and convert to uppercase
         guess = input("Please guess a letter: ").strip().upper()
 
@@ -53,13 +64,6 @@ def play(word):
                 print("Please enter one letter only.")
             elif not guess.isalpha():
                 print("Please enter an alphabet only.")
-        
-        # Print updated game state
-        print(f"Lives: {lives}")
-        print(display_hangman(lives))
-        print(word_completion)
-        print(f"You have already entered the following letters: {guessed_letters}")
-        print("\n")
     
     # When game is won
     if guessed:
@@ -153,7 +157,7 @@ def display_hangman(lives):
 
 def main():
     """Run all program functions"""
-
+    clear()
     # Game menu to ask user to select a category; Credit: Scottish Coder
     while True:
         print()
