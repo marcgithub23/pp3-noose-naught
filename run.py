@@ -1,5 +1,10 @@
 import random
+import os
 from words import animals
+
+def clear():
+    """Clear terminal"""
+    os.system("cls")
 
 def get_word():
     """
