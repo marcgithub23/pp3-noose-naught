@@ -12,9 +12,11 @@ def print_word(values):
 def play(word):
     """Start and play hangman game"""
     word_display = []
+    definition = definitions[word.lower()]
     guessed = False
     guessed_letters = []
     lives = 6
+    hint = 1
     quit = False
 
     for char in word:
@@ -27,8 +29,12 @@ def play(word):
 
     while not guessed and lives > 0 and not quit:
         print(f"Lives: {lives}")
+        print(f"Hint available: {hint}")
         print(display_hangman(lives))
         print_word(word_display)
+        print()
+        if hint == 0:
+            print(f"Definition of the word: {definition}")
         print()
         print(f"You have already entered the following letters: {guessed_letters}")
         print()
@@ -59,11 +65,26 @@ def play(word):
 
         # Validate user input
         else:
-            if len(guess) != 1 and guess != "QUIT":
+            if len(guess) != 1 and guess != "HINT" and guess != "QUIT":
                 print("Please enter one letter only.")
             elif not guess.isalpha():
                 print("Please enter an alphabet only.")
         
+        # Hint option
+        if guess == "HINT":
+            hint_answer = input("Are you sure you want to use hint in exchange for 3 lives? (Y/N): \n").upper()
+            if hint_answer == "N":
+                continue
+            else:
+                if lives > 3:
+                    print(f"You've exchanged 3 lives for a hint.")
+                    lives -= 3
+                    hint -= 1
+                elif hint == 0:
+                    print("You've already used hint.")
+                else:
+                    print("You need at least 4 lives to use hint and continue the game.")
+
         # Quit option
         if guess == "QUIT":
             quit_answer = input("Are you sure you want to quit and go back to the game menu? (Y/N): \n").upper()
