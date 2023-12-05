@@ -4,7 +4,7 @@ from words import word_categories, words_list, definitions
 def print_word(values):
     """Print and display word to guess"""
     print()
-    print("\t", end=" ")
+    print("\t\t", end=" ")
     for x in values:
         print(x, end=" ")
     print()
@@ -15,6 +15,7 @@ def play(word):
     definition = definitions[word.lower()]
     guessed = False
     guessed_letters = []
+    correct_letters = []
     lives = 6
     hint = 1
     quit = False
@@ -54,6 +55,7 @@ def play(word):
             else:
                 print(f"Good job, the letter {guess} is in the word! You won't lose to the noose yet!")
                 guessed_letters.append(guess)
+                correct_letters.append(guess)
                 # Replace blank with correct guess
                 for i in range(len(word)):
                     if word[i] == guess:
@@ -110,7 +112,10 @@ def play(word):
     
     # When game over
     else:
-        print(f"Oh no, you're out of lives! You snooze, you're noosed! The word was {word}.")
+        print(display_hangman(lives))
+        print_word(word_display)
+        print()
+        print(f"Oh no, you're out of lives! You snooze, you're noosed! You guessed {len(correct_letters)} letters correctly, but the word was {word}.")
 
 def display_hangman(lives):
     """
