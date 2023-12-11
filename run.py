@@ -170,18 +170,16 @@ def play(word):
     else:
         print(display_hangman(lives))
         print_word(word_display)
-        
-        print(f"""
-            Too bad, you're out of lives!
-            You snooze, you're noosed!
-            You guessed {len(correct_letters)} letters correctly.
-            But the word was {word}.
-
-            Going back to the game menu...
-            
-            Please wait a moment...
-            """)
-        
+        if len(correct_letters) == 1:
+            num_correct_letters = f"{len(correct_letters)} letter"
+        else:
+            num_correct_letters = f"{len(correct_letters)} letters"
+        print("\nToo bad, you're out of lives!")
+        print("You snooze, you're noosed!")
+        print(f"You guessed {num_correct_letters} correctly.")
+        print(f"But the word was {word}.\n")
+        print("Going back to the game menu...\n")
+        print("Please wait a moment...\n")
         # Delay to give user time to read final result and back to game menu
         time.sleep(10)
 
