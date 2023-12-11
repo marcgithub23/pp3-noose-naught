@@ -1,8 +1,15 @@
 import random
 import time
+import os
 from simple_term_menu import TerminalMenu
 from words import words_list, definitions
 from hangman_visuals import stages
+
+
+def clear():
+    """Clear terminal"""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def print_word(values):
     """Print and display word to guess"""
@@ -11,7 +18,6 @@ def print_word(values):
     for x in values:
         print(x, end=" ")
     print()
-
 
 
 def play(word):
@@ -23,6 +29,7 @@ def play(word):
     correct_letters = []
     lives = 6
     hint = 1
+    output_message = ""
     quit = False
 
     for char in word:
@@ -34,31 +41,30 @@ def play(word):
             word_display.append(char)
 
     while not guessed and lives > 0 and not quit:
-        print(f"Lives: {lives}")
-        print(f"Hint available: {hint}")
+        clear()
         print(display_hangman(lives))
         print_word(word_display)
         print()
         if hint == 0:
-            print(f"Definition of the word: {definition}")
-        print()
-        print(f"You have already entered the following letters: {guessed_letters}")
-        print()
-
+            print(f"Definition of the word: {definition}\n")
+        print(f"You tried the following letters: {guessed_letters}\n")
+        print(f"Lives: {lives}")
+        print(f"Hint available: {hint}\n")
+        print(f"{output_message}\n")
         # Strip any leading and/or trailing whitespace and convert to uppercase
-        guess = input("Please guess a letter: \n").strip().upper()
+        guess = input("Please guess a letter:\n").strip().upper()
 
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
-                print(f"You already guessed the letter {guess}.")
+                output_message = f"You already guessed the letter {guess}."
             elif guess not in word:
-                print(f"Oh no, the letter {guess} is not in the word. You've lost one life!")
+                output_message = f"{guess} is not in the word. Minus 1 life!"
                 # Subtract one life for wrong guess
                 lives -= 1
                 # Add guessed letter to list for user's reference
                 guessed_letters.append(guess)
             else:
-                print(f"Good job, the letter {guess} is in the word! You won't lose to the noose yet!")
+                output_message = f"Good job, {guess} is in the word!"
                 guessed_letters.append(guess)
                 correct_letters.append(guess)
                 # Replace blank with correct guess
@@ -73,11 +79,11 @@ def play(word):
         # Validate user input
         else:
             if len(guess) > 1 and guess != "HINT" and guess != "QUIT":
-                print("Please enter one letter only.")
+                output_message = "Please enter one letter only."
             elif len(guess) == 0:
-                print("You have not entered a letter. Please enter a letter.")
+                output_message = "No letter entered. Please enter a letter."
             elif not guess.isalpha():
-                print("Please enter an alphabet only.")
+                output_message = "Please enter an alphabet only."
         
         # Hint option
         if guess == "HINT":
@@ -86,31 +92,29 @@ def play(word):
             options_menu = TerminalMenu(options)
             
             while True:
-                print("Use hint in exchange for 3 lives?")
+                print("\nUse hint in exchange for 3 lives?")
                 try:
                     options_index = options_menu.show()
                     options_choice = options[options_index]
                     if options_choice == "No":
-                        print(options_choice)
                         break
                     elif options_choice == "Yes":
-                        print(options_choice)
                         if lives > 3:
-                            print(f"You've exchanged 3 lives for a hint.")
+                            output_message = "Exchanged 3 lives for a hint."
                             lives -= 3
                             hint -= 1
                         elif hint == 0:
-                            print("You've already used hint.")
+                            output_message = "You've already used hint."
                         else:
-                            print("Not enough lives to use hint and continue.")
+                            output_message = "Not enough lives left."
                         break
                 # Catch and handle any errors
                 except Exception as e:
-                    print(f"An error occured: {e} \n")
-                    print("Invalid option! \n")
+                    print(f"An error occured: {e}\n")
+                    print("Invalid option!\n")
                     print("Please use the arrow keys to navigate through")
                     print("the available options and hit enter")
-                    print("to select your choice. \n")
+                    print("to select your choice.\n")
 
         # Quit option
         if guess == "QUIT":
@@ -119,31 +123,35 @@ def play(word):
             options_menu = TerminalMenu(options)
             
             while True:
-                print("Quit to game menu?")
+                print("\nQuit to game menu?")
                 try:
                     options_index = options_menu.show()
                     options_choice = options[options_index]
                     if options_choice == "No":
-                        print(options_choice)
                         break
                     elif options_choice == "Yes":
-                        print(options_choice)
                         quit = True
                         break
                 # Catch and handle any errors
                 except Exception as e:
-                    print(f"An error occured: {e} \n")
-                    print("Invalid option! \n")
+                    print(f"An error occured: {e}\n")
+                    print("Invalid option!\n")
                     print("Please use the arrow keys to navigate through")
                     print("the available options and hit enter")
-                    print("to select your choice. \n")
+                    print("to select your choice.\n")
     
     # When quitting
     if quit:
-        print("Thank you for attempting!")
+        print("\nThank you for attempting!\n")
+        print("Going back to the game menu...\n")
+        print("Please wait a moment...\n")
+        # Delay to give illusion of loading and time to read message
+        time.sleep(5)
+        clear()
     
     # When game is won
     elif guessed:
+        clear()
         display_hangman_win()
         print_word(word_display)
         
@@ -152,23 +160,17 @@ def play(word):
         else:
             lives_left = f"{lives} lives left"
         
-        print(f"""
-            
-            Congratulations, you guessed the word {word}!
-            You escaped the noose with {lives_left}!
-            
-            Going back to the game menu...
-            
-            Please wait a moment...
-            
-            """)
-        
+        print(f"\nCongratulations, you guessed the word {word}!")
+        print(f"You escaped the noose with {lives_left}!\n")
+        print("Going back to the game menu...\n")
+        print("Please wait a moment...\n")
         # Delay to give user time to read final result and back to game menu
         # Credit: Fabio Musanni
         time.sleep(10)
     
     # When game over
     else:
+        clear()
         print(display_hangman(lives))
         print_word(word_display)
         if len(correct_letters) == 1:
@@ -184,9 +186,11 @@ def play(word):
         # Delay to give user time to read final result and back to game menu
         time.sleep(10)
 
+
 def display_hangman(lives):
     """Display hangman visuals according to lives left."""
     return stages[lives]
+
 
 def display_hangman_win():
     """
@@ -211,9 +215,9 @@ def print_game_menu():
     
     print(f"""
         
-        ------------------------------------------------------------------
-        |                             GAME MENU                          |
-        ------------------------------------------------------------------
+        -----------------------------------------------------------------------
+        |                               GAME MENU                             |
+        -----------------------------------------------------------------------
         
         Welcome to Noose Naught, a hangman game.
         
@@ -232,6 +236,7 @@ def print_game_menu():
         
         """)
 
+
 def game_menu_options():
     """
     Display game menu with simple term menu
@@ -244,6 +249,7 @@ def game_menu_options():
     quit = False
 
     while not quit:
+        clear()
         print_game_menu()
         try:
             options_index = main_menu.show()
@@ -251,29 +257,34 @@ def game_menu_options():
             
             # Exit program
             if options_choice == "Quit":
-                print("Thank you for playing!")
+                print("Thank you for playing!\n")
+                print("Closing the program...\n")
+                print("Please wait a moment...\n")
                 quit = True
+                # Delay to give illusion of exiting and time to read message
+                time.sleep(5)
+                clear()
             # Get random word from category of choice and start game
             else:
+                clear()
                 word = random.choice(words_list[options_choice.lower()]).upper()
                 play(word)
         # Catch and handle any errors
         except Exception as e:
-            print(f"""
-                
-                An error occured: {e}
-                
-                Invalid option!
-                
-                Please use the arrow keys to navigate through the available
-                options and hit enter to select your choice.
-
-                """)
+            print(f"An error occured: {e}\n")
+            print("Invalid option!\n")
+            print("Please use the arrow keys to navigate through")
+            print("the available options and hit enter")
+            print("to select your choice.\n")
+            print("Reloading... Please wait a moment...")
+            # Delay to give user time to read error message before cleared
+            time.sleep(7)
 
 
 def main():
     """Run all program functions"""
     game_menu_options()
+
 
 if __name__ == "__main__":
     main()
