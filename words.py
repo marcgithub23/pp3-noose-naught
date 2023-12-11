@@ -1,9 +1,3 @@
-word_categories = {
-    1: "animals",
-    2: "verbs",
-    3: "uncommon words"
-}
-
 words_list = {
     "animals": ["dog", "cat", "elephant", "penguin", "tiger"],
     "verbs": ["run", "jump"],

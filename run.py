@@ -1,6 +1,6 @@
 import random
 from simple_term_menu import TerminalMenu
-from words import word_categories, words_list, definitions
+from words import words_list, definitions
 
 def print_word(values):
     """Print and display word to guess"""
