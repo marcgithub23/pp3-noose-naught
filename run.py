@@ -69,8 +69,10 @@ def play(word):
 
         # Validate user input
         else:
-            if len(guess) != 1 and guess != "HINT" and guess != "QUIT":
+            if len(guess) > 1 and guess != "HINT" and guess != "QUIT":
                 print("Please enter one letter only.")
+            elif len(guess) == 0:
+                print("You have not entered a letter. Please enter a letter.")
             elif not guess.isalpha():
                 print("Please enter an alphabet only.")
         
