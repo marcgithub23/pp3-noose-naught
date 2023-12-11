@@ -1,4 +1,5 @@
 import random
+from simple_term_menu import TerminalMenu
 from words import word_categories, words_list, definitions
 
 def print_word(values):
@@ -212,40 +213,75 @@ def display_hangman_win():
         """
     )
 
+
+def print_game_menu():
+    """Display game menu"""
+    
+    print(f"""
+        
+        ------------------------------------------------------------------
+        |                             GAME MENU                          |
+        ------------------------------------------------------------------
+        
+        Welcome to Noose Naught, a hangman game.
+        
+        Game Instructions:
+        - You have 6 lives (or tries) to guess the word.
+        - You can use 1 hint in exchange for 3 lives by typing "hint".
+        - You need at least 4 lives to use 1 hint and continue the game.
+        - You only have 1 hint available.
+        - The hint is the definition of the word.
+        - To quit a game in progress, type "quit" to go back to the game menu.
+        
+        Ready to play and put your neck in the noose?
+        
+        Using the arrow keys, please select a word category below and hit enter.
+        Or select quit and hit enter to exit program.
+        
+        """)
+
+def game_menu_options():
+    """
+    Display game menu with simple term menu
+    Credit: Chad Thackray
+    """
+    
+    # List available options
+    options = ["Animals", "Verbs", "Uncommon words", "Quit"]
+    main_menu = TerminalMenu(options)
+    quit = False
+
+    while not quit:
+        print_game_menu()
+        try:
+            options_index = main_menu.show()
+            options_choice = options[options_index]
+            
+            # Exit program
+            if options_choice == "Quit":
+                print("Thank you for playing!")
+                quit = True
+            # Get random word from category of choice and start game
+            else:
+                word = random.choice(words_list[options_choice.lower()]).upper()
+                play(word)
+        # Catch and handle any errors
+        except Exception as e:
+            print(f"""
+                
+                An error occured: {e}
+                
+                Invalid option!
+                
+                Please use the arrow keys to navigate through the available
+                options and hit enter to select your choice.
+
+                """)
+
+
 def main():
     """Run all program functions"""
-    # Game menu to ask user to select a category; Credit: Scottish Coder
-    while True:
-        print()
-        print("---------------------")
-        print("\t\tGAME MENU")
-        print("---------------------")
-        # Display available categories to choose from and exit option
-        for key in word_categories:
-            print(f"Press {key} to select {word_categories[key]}")
-            print(f"Press {len(word_categories) + 1} to exit game")
-            print()
-        try:
-            # Ask user to enter choice and convert to int
-            choice = int(input("Enter your choice = \n"))
-        except ValueError:
-            # Handle error if user enters an invalid choice
-            print("Invalid choice! Please select from the available options.")
-            continue
-        
-        # If user enters a number greater than the available options
-        if choice > len(word_categories) + 1:
-            print("Invalid choice! Please select from the available options.")
-            continue
-        # If user wants to exit game
-        elif choice == len(word_categories) + 1:
-            print()
-            print("Thank you for playing!")
-            break
-
-        chosen_category = word_categories[choice]
-        word = random.choice(words_list[chosen_category]).upper()
-        play(word)
+    game_menu_options()
 
 if __name__ == "__main__":
     main()
