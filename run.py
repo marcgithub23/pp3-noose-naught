@@ -11,6 +11,8 @@ def print_word(values):
         print(x, end=" ")
     print()
 
+
+
 def play(word):
     """Start and play hangman game"""
     word_display = []
@@ -78,26 +80,62 @@ def play(word):
         
         # Hint option
         if guess == "HINT":
-            hint_answer = input("Are you sure you want to use hint in exchange for 3 lives? (Y/N): \n").upper()
-            if hint_answer == "N":
-                continue
-            else:
-                if lives > 3:
-                    print(f"You've exchanged 3 lives for a hint.")
-                    lives -= 3
-                    hint -= 1
-                elif hint == 0:
-                    print("You've already used hint.")
-                else:
-                    print("You need at least 4 lives to use hint and continue the game.")
+            # List yes and no options
+            options = ["Yes", "No"]
+            options_menu = TerminalMenu(options)
+            
+            while True:
+                print("Use hint in exchange for 3 lives?")
+                try:
+                    options_index = options_menu.show()
+                    options_choice = options[options_index]
+                    if options_choice == "No":
+                        print(options_choice)
+                        break
+                    elif options_choice == "Yes":
+                        print(options_choice)
+                        if lives > 3:
+                            print(f"You've exchanged 3 lives for a hint.")
+                            lives -= 3
+                            hint -= 1
+                        elif hint == 0:
+                            print("You've already used hint.")
+                        else:
+                            print("Not enough lives to use hint and continue.")
+                        break
+                # Catch and handle any errors
+                except Exception as e:
+                    print(f"An error occured: {e} \n")
+                    print("Invalid option! \n")
+                    print("Please use the arrow keys to navigate through")
+                    print("the available options and hit enter")
+                    print("to select your choice. \n")
 
         # Quit option
         if guess == "QUIT":
-            quit_answer = input("Are you sure you want to quit and go back to the game menu? (Y/N): \n").upper()
-            if quit_answer == "N":
-                continue
-            else:
-                quit = True
+            # List yes and no options
+            options = ["Yes", "No"]
+            options_menu = TerminalMenu(options)
+            
+            while True:
+                print("Quit to game menu?")
+                try:
+                    options_index = options_menu.show()
+                    options_choice = options[options_index]
+                    if options_choice == "No":
+                        print(options_choice)
+                        break
+                    elif options_choice == "Yes":
+                        print(options_choice)
+                        quit = True
+                        break
+                # Catch and handle any errors
+                except Exception as e:
+                    print(f"An error occured: {e} \n")
+                    print("Invalid option! \n")
+                    print("Please use the arrow keys to navigate through")
+                    print("the available options and hit enter")
+                    print("to select your choice. \n")
     
     # When quitting
     if quit:
