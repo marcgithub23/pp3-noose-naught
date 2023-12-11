@@ -84,13 +84,13 @@ def play(word):
                 output_message = "No letter entered. Please enter a letter."
             elif not guess.isalpha():
                 output_message = "Please enter an alphabet only."
-        
+
         # Hint option
         if guess == "HINT":
             # List yes and no options
             options = ["Yes", "No"]
             options_menu = TerminalMenu(options)
-            
+
             while True:
                 print("\nUse hint in exchange for 3 lives?")
                 try:
@@ -121,7 +121,7 @@ def play(word):
             # List yes and no options
             options = ["Yes", "No"]
             options_menu = TerminalMenu(options)
-            
+
             while True:
                 print("\nQuit to game menu?")
                 try:
@@ -139,7 +139,7 @@ def play(word):
                     print("Please use the arrow keys to navigate through")
                     print("the available options and hit enter")
                     print("to select your choice.\n")
-    
+
     # When quitting
     if quit:
         print("\nThank you for attempting!\n")
@@ -148,18 +148,18 @@ def play(word):
         # Delay to give illusion of loading and time to read message
         time.sleep(5)
         clear()
-    
+
     # When game is won
     elif guessed:
         clear()
         display_hangman_win()
         print_word(word_display)
-        
+
         if lives == 1:
             lives_left = f"{lives} life left"
         else:
             lives_left = f"{lives} lives left"
-        
+
         print(f"\nCongratulations, you guessed the word {word}!")
         print(f"You escaped the noose with {lives_left}!\n")
         print("Going back to the game menu...\n")
@@ -167,7 +167,7 @@ def play(word):
         # Delay to give user time to read final result and back to game menu
         # Credit: Fabio Musanni
         time.sleep(10)
-    
+
     # When game over
     else:
         clear()
@@ -200,8 +200,8 @@ def display_hangman_win():
     print(
         """
         --------
-        |      
-        |      
+        |
+        |
         |            O
         |           \\|/
         |            |
@@ -212,15 +212,15 @@ def display_hangman_win():
 
 def print_game_menu():
     """Display game menu"""
-    
+
     print(f"""
-        
+
         -----------------------------------------------------------------------
         |                               GAME MENU                             |
         -----------------------------------------------------------------------
-        
+
         Welcome to Noose Naught, a hangman game.
-        
+
         Game Instructions:
         - You have 6 lives (or tries) to guess the word.
         - You can use 1 hint in exchange for 3 lives by typing "hint".
@@ -228,12 +228,12 @@ def print_game_menu():
         - You only have 1 hint available.
         - The hint is the definition of the word.
         - To quit a game in progress, type "quit" to go back to the game menu.
-        
+
         Ready to play and put your neck in the noose?
-        
-        Using the arrow keys, please select a word category below and hit enter.
-        Or select quit and hit enter to exit program.
-        
+
+        Using the arrow keys, please select a word category below and hit enter
+        or select quit and hit enter to exit program.
+
         """)
 
 
@@ -242,7 +242,7 @@ def game_menu_options():
     Display game menu with simple term menu
     Credit: Chad Thackray
     """
-    
+
     # List available options
     options = ["Animals", "Verbs", "Uncommon words", "Quit"]
     main_menu = TerminalMenu(options)
@@ -254,7 +254,7 @@ def game_menu_options():
         try:
             options_index = main_menu.show()
             options_choice = options[options_index]
-            
+
             # Exit program
             if options_choice == "Quit":
                 print("Thank you for playing!\n")
@@ -267,7 +267,9 @@ def game_menu_options():
             # Get random word from category of choice and start game
             else:
                 clear()
-                word = random.choice(words_list[options_choice.lower()]).upper()
+                # Change to lower case to match keys
+                options_choice = options_choice.lower()
+                word = random.choice(words_list[options_choice]).upper()
                 play(word)
         # Catch and handle any errors
         except Exception as e:

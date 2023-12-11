@@ -16,7 +16,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 |      O
                 |     \\|/
                 |      |
-                |     / 
+                |     /
                 -
             """,
             # head, torso, and both arms
@@ -26,7 +26,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 |      O
                 |     \\|/
                 |      |
-                |      
+                |
                 -
             """,
             # head, torso, and one arm
@@ -36,7 +36,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 |      O
                 |     \\|
                 |      |
-                |     
+                |
                 -
             """,
             # head and torso
@@ -46,7 +46,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 |      O
                 |      |
                 |      |
-                |     
+                |
                 -
             """,
             # head
@@ -54,19 +54,19 @@ stages = [  # final state: head, torso, both arms, and both legs
                 --------
                 |      |
                 |      O
-                |    
-                |      
-                |     
+                |
+                |
+                |
                 -
             """,
             # initial empty state
             """
                 --------
                 |      |
-                |      
-                |    
-                |      
-                |     
+                |
+                |
+                |
+                |
                 -
             """
     ]
