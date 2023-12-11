@@ -2,6 +2,7 @@ import random
 import time
 from simple_term_menu import TerminalMenu
 from words import words_list, definitions
+from hangman_visuals import stages
 
 def print_word(values):
     """Print and display word to guess"""
@@ -184,81 +185,7 @@ def play(word):
         time.sleep(10)
 
 def display_hangman(lives):
-    """
-    Display hangman visuals according to lives left.
-    Credit: Kite
-    """
-    stages = [  # final state: head, torso, both arms, and both legs
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / \\
-                   -
-                """,
-                # head, torso, both arms, and one leg
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / 
-                   -
-                """,
-                # head, torso, and both arms
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |      
-                   -
-                """,
-                # head, torso, and one arm
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|
-                   |      |
-                   |     
-                   -
-                """,
-                # head and torso
-                """
-                   --------
-                   |      |
-                   |      O
-                   |      |
-                   |      |
-                   |     
-                   -
-                """,
-                # head
-                """
-                   --------
-                   |      |
-                   |      O
-                   |    
-                   |      
-                   |     
-                   -
-                """,
-                # initial empty state
-                """
-                   --------
-                   |      |
-                   |      
-                   |    
-                   |      
-                   |     
-                   -
-                """
-    ]
+    """Display hangman visuals according to lives left."""
     return stages[lives]
 
 def display_hangman_win():
