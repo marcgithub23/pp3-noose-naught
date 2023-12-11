@@ -1,4 +1,5 @@
 import random
+import time
 from simple_term_menu import TerminalMenu
 from words import words_list, definitions
 
@@ -104,19 +105,45 @@ def play(word):
     elif guessed:
         display_hangman_win()
         print_word(word_display)
-        print()
+        
         if lives == 1:
             lives_left = f"{lives} life left"
         else:
             lives_left = f"{lives} lives left"
-        print(f"Congratulations, you guessed the word {word}! You escaped the noose with {lives_left}!")
+        
+        print(f"""
+            
+            Congratulations, you guessed the word {word}!
+            You escaped the noose with {lives_left}!
+            
+            Going back to the game menu...
+            
+            Please wait a moment...
+            
+            """)
+        
+        # Delay to give user time to read final result and back to game menu
+        # Credit: Fabio Musanni
+        time.sleep(10)
     
     # When game over
     else:
         print(display_hangman(lives))
         print_word(word_display)
-        print()
-        print(f"Oh no, you're out of lives! You snooze, you're noosed! You guessed {len(correct_letters)} letters correctly, but the word was {word}.")
+        
+        print(f"""
+            Too bad, you're out of lives!
+            You snooze, you're noosed!
+            You guessed {len(correct_letters)} letters correctly.
+            But the word was {word}.
+
+            Going back to the game menu...
+            
+            Please wait a moment...
+            """)
+        
+        # Delay to give user time to read final result and back to game menu
+        time.sleep(10)
 
 def display_hangman(lives):
     """
