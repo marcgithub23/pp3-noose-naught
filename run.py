@@ -1,9 +1,12 @@
 import random
 import time
 import os
+import colorama
 from simple_term_menu import TerminalMenu
 from words import words_list, definitions
 from hangman_visuals import stages
+from colorama import Fore
+colorama.init(autoreset=True)
 
 
 def clear():
@@ -46,11 +49,11 @@ def play(word):
         print_word(word_display)
         print()
         if hint == 0:
-            print(f"Definition of the word: {definition}\n")
+            print(f"{Fore.CYAN}Definition of the word: {definition}\n")
         print(f"You tried the following letters: {guessed_letters}\n")
         print(f"Lives: {lives}")
         print(f"Hint available: {hint}\n")
-        print(f"{output_message}\n")
+        print(f"{Fore.YELLOW}{output_message}\n")
         # Strip any leading and/or trailing whitespace and convert to uppercase
         guess = input("Please guess a letter:\n").strip().upper()
 
@@ -110,11 +113,11 @@ def play(word):
                         break
                 # Catch and handle any errors
                 except Exception as e:
-                    print(f"An error occured: {e}\n")
-                    print("Invalid option!\n")
-                    print("Please use the arrow keys to navigate through")
-                    print("the available options and hit enter")
-                    print("to select your choice.\n")
+                    print(f"{Fore.RED}\nAn error occured: {e}\n")
+                    print(f"{Fore.RED}Invalid option!\n")
+                    print(f"{Fore.RED}Please use the arrow keys to navigate")
+                    print(f"{Fore.RED}through the available options and hit")
+                    print(f"{Fore.RED}enter to select your choice.\n")
 
         # Quit option
         if guess == "QUIT":
@@ -134,17 +137,17 @@ def play(word):
                         break
                 # Catch and handle any errors
                 except Exception as e:
-                    print(f"An error occured: {e}\n")
-                    print("Invalid option!\n")
-                    print("Please use the arrow keys to navigate through")
-                    print("the available options and hit enter")
-                    print("to select your choice.\n")
+                    print(f"{Fore.RED}\nAn error occured: {e}\n")
+                    print(f"{Fore.RED}Invalid option!\n")
+                    print(f"{Fore.RED}Please use the arrow keys to navigate")
+                    print(f"{Fore.RED}through the available options and hit")
+                    print(f"{Fore.RED}enter to select your choice.\n")
 
     # When quitting
     if quit:
-        print("\nThank you for attempting!\n")
-        print("Going back to the game menu...\n")
-        print("Please wait a moment...\n")
+        print(f"{Fore.GREEN}\nThank you for attempting!\n")
+        print(f"{Fore.GREEN}Going back to the game menu...\n")
+        print(f"{Fore.GREEN}Please wait a moment...\n")
         # Delay to give illusion of loading and time to read message
         time.sleep(5)
         clear()
@@ -160,10 +163,10 @@ def play(word):
         else:
             lives_left = f"{lives} lives left"
 
-        print(f"\nCongratulations, you guessed the word {word}!")
-        print(f"You escaped the noose with {lives_left}!\n")
-        print("Going back to the game menu...\n")
-        print("Please wait a moment...\n")
+        print(f"{Fore.YELLOW}\nCongratulations, you guessed the word {word}!")
+        print(f"{Fore.YELLOW}You escaped the noose with {lives_left}!\n")
+        print(f"{Fore.GREEN}Going back to the game menu...\n")
+        print(f"{Fore.GREEN}Please wait a moment...\n")
         # Delay to give user time to read final result and back to game menu
         # Credit: Fabio Musanni
         time.sleep(10)
@@ -177,12 +180,12 @@ def play(word):
             num_correct_letters = f"{len(correct_letters)} letter"
         else:
             num_correct_letters = f"{len(correct_letters)} letters"
-        print("\nToo bad, you're out of lives!")
-        print("You snooze, you're noosed!")
-        print(f"You guessed {num_correct_letters} correctly.")
-        print(f"But the word was {word}.\n")
-        print("Going back to the game menu...\n")
-        print("Please wait a moment...\n")
+        print(f"{Fore.RED}\nToo bad, you're out of lives!")
+        print(f"{Fore.RED}You snooze, you're noosed!")
+        print(f"{Fore.RED}You guessed {num_correct_letters} correctly.")
+        print(f"{Fore.RED}But the word was {word}.\n")
+        print(f"{Fore.GREEN}Going back to the game menu...\n")
+        print(f"{Fore.GREEN}Please wait a moment...\n")
         # Delay to give user time to read final result and back to game menu
         time.sleep(10)
 
@@ -198,7 +201,7 @@ def display_hangman_win():
     Credit: Scottish Coder
     """
     print(
-        """
+        f"""{Fore.GREEN}
         --------
         |
         |
@@ -213,7 +216,7 @@ def display_hangman_win():
 def print_game_menu():
     """Display game menu"""
 
-    print(f"""
+    print(f"""{Fore.GREEN}
 
         -----------------------------------------------------------------------
         |                               GAME MENU                             |
@@ -257,9 +260,9 @@ def game_menu_options():
 
             # Exit program
             if options_choice == "Quit":
-                print("Thank you for playing!\n")
-                print("Closing the program...\n")
-                print("Please wait a moment...\n")
+                print(f"{Fore.GREEN}Thank you for playing!\n")
+                print(f"{Fore.GREEN}Closing the program...\n")
+                print(f"{Fore.GREEN}Please wait a moment...\n")
                 quit = True
                 # Delay to give illusion of exiting and time to read message
                 time.sleep(5)
@@ -273,12 +276,12 @@ def game_menu_options():
                 play(word)
         # Catch and handle any errors
         except Exception as e:
-            print(f"An error occured: {e}\n")
-            print("Invalid option!\n")
-            print("Please use the arrow keys to navigate through")
-            print("the available options and hit enter")
-            print("to select your choice.\n")
-            print("Reloading... Please wait a moment...")
+            print(f"{Fore.RED}\nAn error occured: {e}\n")
+            print(f"{Fore.RED}Invalid option!\n")
+            print(f"{Fore.RED}Please use the arrow keys to navigate through")
+            print(f"{Fore.RED}the available options and hit enter")
+            print(f"{Fore.RED}to select your choice.\n")
+            print(f"{Fore.GREEN}Reloading... Please wait a moment...")
             # Delay to give user time to read error message before cleared
             time.sleep(7)
 

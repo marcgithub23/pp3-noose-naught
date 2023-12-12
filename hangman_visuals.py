@@ -1,6 +1,8 @@
+from colorama import Fore
+
 # Credit: Kite
 stages = [  # final state: head, torso, both arms, and both legs
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -10,7 +12,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # head, torso, both arms, and one leg
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -20,7 +22,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # head, torso, and both arms
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -30,7 +32,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # head, torso, and one arm
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -40,7 +42,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # head and torso
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -50,7 +52,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # head
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |      O
@@ -60,7 +62,7 @@ stages = [  # final state: head, torso, both arms, and both legs
                 -
             """,
             # initial empty state
-            """
+            f"""{Fore.RED}
                 --------
                 |      |
                 |
