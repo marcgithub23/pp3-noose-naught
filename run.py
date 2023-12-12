@@ -4,7 +4,7 @@ import os
 import colorama
 from simple_term_menu import TerminalMenu
 from words import words_list, definitions
-from hangman_visuals import stages
+from hangman_visuals import *
 from colorama import Fore
 
 
@@ -179,7 +179,7 @@ Please wait a moment...
     # When game is won
     elif guessed:
         clear()
-        display_hangman_win()
+        print(hangman_win)
         print_word(word_display)
 
         if lives == 1:
@@ -230,51 +230,6 @@ def display_hangman(lives):
     return stages[lives]
 
 
-def display_hangman_win():
-    """
-    Print out a visual of the man escaping the gallows
-    Credit: Scottish Coder
-    """
-    print(
-        f"""{Fore.GREEN}
-        --------
-        |
-        |
-        |            O
-        |           \\|/
-        |            |
-        -           / \\
-        """
-    )
-
-
-def print_game_menu():
-    """Display game menu"""
-
-    print(f"""{Fore.GREEN}
-
-        -----------------------------------------------------------------------
-        |                               GAME MENU                             |
-        -----------------------------------------------------------------------
-
-        Welcome to Noose Naught, a hangman game.
-
-        Game Instructions:
-        - You have 6 lives (or tries) to guess the word.
-        - You can use 1 hint in exchange for 3 lives by typing "hint".
-        - You need at least 4 lives to use 1 hint and continue the game.
-        - You only have 1 hint available.
-        - The hint is the definition of the word.
-        - To quit a game in progress, type "quit" to go back to the game menu.
-
-        Ready to play and put your neck in the noose?
-
-        Using the arrow keys, please select a word category below and hit enter
-        or select quit and hit enter to exit program.
-
-        """)
-
-
 def game_menu_options():
     """
     Display game menu with simple term menu
@@ -288,7 +243,7 @@ def game_menu_options():
 
     while not quit:
         clear()
-        print_game_menu()
+        print(game_menu_text)
         try:
             options_index = main_menu.show()
             options_choice = options[options_index]
